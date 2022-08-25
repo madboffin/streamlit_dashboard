@@ -107,5 +107,16 @@ fig_hourly_sales.update_layout(
     yaxis={'showgrid':False}
 )
 
-st.plotly_chart(fig_product_sales)
-st.plotly_chart(fig_hourly_sales)
+left_col, right_col = st.columns(2)
+left_col.plotly_chart(fig_product_sales)
+right_col.plotly_chart(fig_hourly_sales)
+
+#### hide streamlit default style ####
+# hides some elements in the dashboard that come by default
+hide_st_style = """
+    <style>
+    # MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    # header {visibility: hidden;}
+    </style>"""
+st.markdown(hide_st_style, unsafe_allow_html=True)
