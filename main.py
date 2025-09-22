@@ -72,7 +72,10 @@ st.dataframe(df_selection)
 #########################  ############################
 # sale by product line [bar chart]
 sales_by_product_line = (
-    df_selection.groupby(by="Product line").sum()[["Total"]].sort_values(by="Total")
+    df_selection.groupby(by=["Product line"])
+    .sum(numeric_only=True)
+    .sort_values(by="Total")
+    .reset_index()
 )
 fig_product_sales = px.bar(
     sales_by_product_line,
@@ -85,7 +88,7 @@ fig_product_sales = px.bar(
 fig_product_sales.update_layout(plot_bgcolor="rgba(0,0,0,0)", xaxis={"showgrid": False})
 
 ######### SALES BY HOUR [chart bar] #########
-sales_by_hour = df_selection.groupby(by=["Hour"]).sum()[["Total"]]
+sales_by_hour = df_selection.groupby(by=["Hour"]).sum(numeric_only=True)[["Total"]]
 fig_hourly_sales = px.bar(
     sales_by_hour,
     x=sales_by_hour.index,
